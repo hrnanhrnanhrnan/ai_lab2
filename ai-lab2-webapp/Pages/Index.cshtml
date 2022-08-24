@@ -1,0 +1,95 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Analyzer";
+}
+
+<div class="text-center text-white">
+    <h1 class="display-4">Welcome to the Image Analyzer</h1>
+</div>
+
+<div class="container-fluid w-50 mt-4 mb-4">
+    <form method="post" class="form-group">
+        <input class="input-group p-2 mb-1" type="text" asp-for="ImageURL" placeholder="Enter the Image URL"/>
+        <button class="btn btn-info mt-2" type="submit">Analyze</button>
+    </form> 
+</div>
+
+@if(Model.ImageURL != null)
+{
+    <div class="bg-dark text-white container">
+        <img src="@Model.ImageURL" class="rounded mx-auto d-block img-fluid" 
+            alt="@(Model.ImageAnalyzisResult?.Description?.Captions.Count > 0 ? Model.ImageAnalyzisResult.Description.Captions[0].Text : "An unidentified picture")">
+        <p class="lead text-center">
+            @(Model.ImageAnalyzisResult?.Description?.Captions.Count > 0 ? Model.ImageAnalyzisResult.Description.Captions[0].Text : "This is a picture that the AI could not describe")
+        </p>
+    </div>
+}
+
+@if(Model.ImageAnalyzisResult != null)
+{
+    <div class="container">
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header text-center" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn w-100 btn-link text-decoration-none text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Result of image analyzis
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            @nameof(Model.ImageAnalyzisResult.Brands)
+            <ul>
+                @foreach(var brand in Model.ImageAnalyzisResult?.Brands.Distinct())
+                {
+                    <li>@brand</li>       
+                }
+            </ul>
+
+            @nameof(Model.ImageAnalyzisResult.Categories)
+            <ul>
+                @foreach(var category in Model.ImageAnalyzisResult?.Categories.Distinct())
+                {
+                    <li>"@category.Name" - confidence score: @category.Score</li>
+                }
+            </ul>
+
+            @nameof(Model.ImageAnalyzisResult.Color)
+            <ul>
+                @foreach(var color in Model.ImageAnalyzisResult.Color?.DominantColors.Distinct()) 
+                {
+                    <li>@color</li>
+                }
+            </ul>
+
+            @nameof(Model.ImageAnalyzisResult.Metadata)
+            <ul>
+                <li>Format: @Model.ImageAnalyzisResult.Metadata?.Format</li>
+                <li>Height (in px): @Model.ImageAnalyzisResult.Metadata?.Height</li>
+                <li>Width (in px): @Model.ImageAnalyzisResult.Metadata?.Width</li>
+            </ul>
+
+            @nameof(Model.ImageAnalyzisResult.Objects)
+            <ul>
+                @foreach(var obj in Model.ImageAnalyzisResult?.Objects.Distinct())
+                {
+                    <li>"@obj.ObjectProperty" - confidence score: @obj.Confidence</li>
+                }
+            </ul>
+
+            @nameof(Model.ImageAnalyzisResult.Tags)
+            <ul>
+                @foreach(var tag in Model.ImageAnalyzisResult?.Tags.Distinct())
+                {
+                    <li>"@tag.Name" - confidence score: @tag.Confidence</li>
+                }
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+}

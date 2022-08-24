@@ -1,0 +1,20 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container mt-5">
+<h1 class="text-danger">Error!</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <p>
+        @Model.ErrorMessage
+    </p>
+}
+
+<a class="btn btn-danger mt-3" asp-page="/Index">Go back to start</a>
+
+</div>

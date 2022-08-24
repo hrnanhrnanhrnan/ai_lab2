@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9490a31d-46c8-46e5-aea6-b7f5e0bbf475": {
+      "ProjectGuid": "9490a31d-46c8-46e5-aea6-b7f5e0bbf475",
+      "DisplayName": "ai-lab2-webapp",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}
